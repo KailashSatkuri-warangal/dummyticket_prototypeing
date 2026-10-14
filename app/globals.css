@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color: #0f172a;
+    background-color: #f8fafc;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme(colors.brand.600);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    /* iOS Safari zooms the viewport when an input with font-size < 16px is focused */
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Layout containers */
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl text-sm font-bold transition-colors disabled:pointer-events-none disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700;
+  }
+
+  .btn-secondary {
+    @apply border border-slate-200 bg-white text-slate-700 shadow-sm hover:bg-slate-50;
+  }
+
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100 hover:text-navy-900;
+  }
+
+  .btn-dark {
+    @apply border border-slate-700 bg-navy-800 text-slate-200 hover:bg-slate-800;
+  }
+
+  /* Form controls */
+  .form-label {
+    @apply mb-1 block text-xs font-semibold text-slate-700;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2.5 text-sm font-medium text-navy-900 placeholder:font-normal placeholder:text-slate-400 transition-colors focus:border-brand-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600/20 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .select-field {
+    @apply w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-navy-900 transition-colors focus:border-brand-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600/20 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .form-error {
+    @apply mt-1 text-xs font-medium text-red-600;
+  }
+
+  /* Surfaces */
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-card;
+  }
+
+  .card-interactive {
+    @apply transition-all duration-200 hover:border-brand-400 hover:shadow-elevated;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-[11px] font-semibold;
+  }
+
+  .badge-brand {
+    @apply border-brand-200 bg-brand-50 text-brand-700;
+  }
+
+  .badge-amber {
+    @apply border-amber-200 bg-amber-50 text-amber-800;
+  }
+
+  .badge-green {
+    @apply border-verified-100 bg-verified-50 text-verified-700;
+  }
+
+  .badge-slate {
+    @apply border-slate-200 bg-slate-100 text-slate-700;
+  }
+
+  /* Typography helpers */
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-wider text-brand-600;
+  }
+
+  .section-heading {
+    @apply text-2xl font-bold text-navy-900;
+  }
+
+  /* Loading skeleton shimmer */
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-slate-200/70;
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.65),
+      transparent
+    );
+    animation: skeletonShimmer 1.6s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .scroll-slim {
+    scrollbar-width: thin;
+    scrollbar-color: theme(colors.slate.300) transparent;
+  }
+
+  .scroll-slim::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scroll-slim::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scroll-slim::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300;
+  }
+}
+
+@keyframes skeletonShimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
